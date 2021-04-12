@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 
-export const Container = styled(LinearGradient).attrs({
+export const Container = styled.SafeAreaView``;
+
+export const Gradiente = styled(LinearGradient).attrs({
   colors: ['#624AF2', '#50DDC3'],
   start: [0, 0.9],
   end: [1, 1],
@@ -10,6 +12,7 @@ export const Container = styled(LinearGradient).attrs({
   position: relative;
   height: 75px;
   padding: 0 12px;
+  elevation: 5;
 
   align-items: center;
   justify-content: center;

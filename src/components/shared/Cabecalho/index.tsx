@@ -8,8 +8,10 @@ import * as S from './styles';
 const Cabecalho: React.FC = () => {
   return (
     <S.Container>
-      <S.Logo source={logoImg} resizeMode="contain" />
-      <S.LogoTexto source={logoTextoImg} resizeMode="contain" />
+      <S.Gradiente>
+        <S.Logo source={logoImg} resizeMode="contain" />
+        <S.LogoTexto source={logoTextoImg} resizeMode="contain" />
+      </S.Gradiente>
     </S.Container>
   );
 };
