@@ -1,6 +1,8 @@
 import React from 'react';
+import { View } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
+import Constants from 'expo-constants';
 import {
   useFonts,
   Montserrat_700Bold,
@@ -18,10 +20,10 @@ const App = () => {
   if (!fontsLoaded) return <AppLoading />;
 
   return (
-    <>
+    <View style={{ paddingTop: Constants.statusBarHeight, flex: 1 }}>
       <StatusBar style="auto" />
       <Inicio />
-    </>
+    </View>
   );
 };
 
