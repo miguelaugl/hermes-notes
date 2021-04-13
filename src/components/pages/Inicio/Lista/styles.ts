@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 interface ItemEstiloProps {
   fixed?: boolean;
+  editing?: boolean;
 }
 
 interface AcaoEstiloProps {
@@ -24,7 +26,7 @@ export const Titulo = styled.Text`
 `;
 
 export const Item = styled.View<ItemEstiloProps>`
-  ${({ fixed }) => css`
+  ${({ fixed, editing }) => css`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -33,12 +35,16 @@ export const Item = styled.View<ItemEstiloProps>`
     margin-bottom: 8px;
     background: #fff;
     border-bottom-width: 1px;
-    border-color: ${fixed ? '#624af2' : 'rgba(0, 0, 0, 0.2)'};
+    border-color: ${editing
+      ? '#50DDC3'
+      : fixed
+      ? '#624af2'
+      : 'rgba(0, 0, 0, 0.2)'};
     border-style: solid;
   `}
 `;
 
-export const ItemTexto = styled.Text`
+export const ItemTexto = styled.TextInput`
   font-size: 16px;
   color: #000;
   font-family: 'Montserrat_400Regular';
@@ -49,7 +55,7 @@ export const ItemAcoes = styled.View`
   flex-direction: row;
 `;
 
-export const Acao = styled.View<AcaoEstiloProps>`
+export const Acao = styled(RectButton)<AcaoEstiloProps>`
   ${({ color }) => css`
     background: ${color};
     border-radius: 32px;

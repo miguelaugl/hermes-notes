@@ -27,6 +27,7 @@ export const InputBusca = styled.TextInput`
   padding: 0 8px;
   margin-left: 24px;
   flex: 1;
+  font-family: 'Montserrat_400Regular';
 `;
 
 export const IconeBusca = styled(IconeFeather).attrs({
@@ -53,4 +54,5 @@ export const InputAdicionar = styled.TextInput`
   flex: 1;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  font-family: 'Montserrat_400Regular';
 `;
