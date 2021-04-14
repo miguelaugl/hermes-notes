@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
 import { Feather as IconeFeather } from '@expo/vector-icons';
+import { Keyboard } from 'react-native';
 
 import { Cabecalho } from '../../shared/Cabecalho';
 import { colocarFixadosNoTopo } from '../../../helpers/colocarFixadosNoTopo';
 
 import * as S from './styles';
 import { Item, Lista } from './Lista';
+import { ListaVazia } from './ListaVazia';
 
 const Inicio = () => {
   const [novaTexto, setNovaTexto] = useState('');
@@ -25,6 +27,8 @@ const Inicio = () => {
         editing: false,
       },
     ];
+
+    Keyboard.dismiss();
 
     await AsyncStorage.setItem(
       '@hermes_itens',
@@ -105,6 +109,15 @@ const Inicio = () => {
     setItens(itensAtualizados);
   };
 
+  const buscarTarefas = async (texto: string) => {
+    const itens: Item[] = JSON.parse(
+      (await AsyncStorage.getItem('@hermes_itens')) as string,
+    );
+    const itensBuscados = itens.filter((item) => item.text.includes(texto));
+
+    setItens(itensBuscados);
+  };
+
   useEffect(() => {
     (async () => {
       const itens = JSON.parse(
@@ -123,7 +136,10 @@ const Inicio = () => {
       <S.Container>
         <S.InputContainer>
           <S.IconeBusca />
-          <S.InputBusca placeholder="Pesquisar" />
+          <S.InputBusca
+            placeholder="Pesquisar"
+            onChangeText={(texto) => buscarTarefas(texto)}
+          />
         </S.InputContainer>
         <S.AdicionarContainer>
           <S.InputAdicionar
@@ -135,13 +151,16 @@ const Inicio = () => {
             <IconeFeather name="plus" size={24} color="#fff" />
           </S.BotaoAdicionar>
         </S.AdicionarContainer>
-        <Lista
-          itens={itens}
-          removerTarefa={removerTarefa}
-          fixarTarefa={fixarTarefa}
-          atualizarEdicao={atualizarEdicao}
-          atualizarTarefa={atualizarTarefa}
-        />
+        {!!itens.length && (
+          <Lista
+            itens={itens}
+            removerTarefa={removerTarefa}
+            fixarTarefa={fixarTarefa}
+            atualizarEdicao={atualizarEdicao}
+            atualizarTarefa={atualizarTarefa}
+          />
+        )}
+        {!itens.length && <ListaVazia />}
       </S.Container>
     </>
   );

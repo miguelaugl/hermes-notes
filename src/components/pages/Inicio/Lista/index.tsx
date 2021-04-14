@@ -43,7 +43,7 @@ const Lista = ({
     <S.Container>
       <S.Titulo>Lista de tarefas</S.Titulo>
       <S.ListaScroll showsVerticalScrollIndicator={false}>
-        {itens?.map(({ id, text, fixed, editing = false }) => (
+        {itens.map(({ id, text, fixed, editing = false }) => (
           <S.Item key={id} fixed={fixed} editing={editing}>
             <S.ItemTexto
               editable={editing}
