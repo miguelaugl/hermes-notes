@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
-import {
-  Feather as IconeFeather,
-  MaterialCommunityIcons as IconeMaterialCommunityIcons,
-} from '@expo/vector-icons';
+import { Feather as IconeFeather } from '@expo/vector-icons';
+
+import { getImageUrl } from '../../../../helpers/getImageUrl';
 
 import * as S from './styles';
 
 export interface Item {
-  id: number;
-  text: string;
-  fixed: boolean;
+  _id: string;
+  texto: string;
   editing: boolean;
+  foto: string;
 }
 
 interface IProps {
   itens: Item[];
-  removerTarefa: (itemId: number) => Promise<void>;
-  fixarTarefa: (itemId: number) => Promise<void>;
-  atualizarEdicao: (itemId: number) => Promise<void>;
-  atualizarTarefa: (itemId: number, novoTexto: string) => Promise<void>;
+  removerTarefa: (itemId: string) => Promise<void>;
+  atualizarEdicao: (itemId: string) => Promise<void>;
+  atualizarTarefa: (itemId: string, novoTexto: string) => Promise<void>;
 }
 
 const Lista = ({
   itens,
   removerTarefa,
-  fixarTarefa,
   atualizarEdicao,
   atualizarTarefa,
 }: IProps) => {
   const [textoEditando, setTextoEditando] = useState('');
 
-  const botaoAtualizarClique = async (itemId: number, texto: string) => {
+  const botaoAtualizarClique = async (itemId: string, texto: string) => {
     await atualizarEdicao(itemId);
     setTextoEditando(texto);
   };
 
-  const finalizarEdicao = async (itemId: number) => {
+  const finalizarEdicao = async (itemId: string) => {
     await atualizarTarefa(itemId, textoEditando);
   };
 
@@ -43,30 +40,24 @@ const Lista = ({
     <S.Container>
       <S.Titulo>Lista de tarefas</S.Titulo>
       <S.ListaScroll showsVerticalScrollIndicator={false}>
-        {itens.map(({ id, text, fixed, editing = false }) => (
-          <S.Item key={id} fixed={fixed} editing={editing}>
+        {itens.map(({ _id, texto, editing = false, foto }) => (
+          <S.Item key={_id} editing={editing}>
+            {!!foto && <S.Imagem source={{ uri: getImageUrl(foto) }} />}
             <S.ItemTexto
               editable={editing}
-              value={editing ? textoEditando : text}
+              value={editing ? textoEditando : texto}
               onChangeText={(text) => setTextoEditando(text)}
             />
             <S.ItemAcoes>
-              <S.Acao color="#EE2525" onPress={() => removerTarefa(id)}>
+              <S.Acao color="#EE2525" onPress={() => removerTarefa(_id)}>
                 <IconeFeather name="trash-2" size={16} color="white" />
-              </S.Acao>
-              <S.Acao color="#624af2" onPress={() => fixarTarefa(id)}>
-                <IconeMaterialCommunityIcons
-                  name="pin-outline"
-                  size={16}
-                  color="white"
-                />
               </S.Acao>
               <S.Acao
                 color="#50DDC3"
                 onPress={
                   editing
-                    ? () => finalizarEdicao(id)
-                    : () => botaoAtualizarClique(id, text)
+                    ? () => finalizarEdicao(_id)
+                    : () => botaoAtualizarClique(_id, texto)
                 }>
                 <IconeFeather
                   name={editing ? 'check' : 'edit-2'}

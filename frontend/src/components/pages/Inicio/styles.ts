@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Feather as IconeFeather } from '@expo/vector-icons';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -12,31 +11,11 @@ export const AdicionarContainer = styled.View`
   flex-direction: row;
 `;
 
-export const InputContainer = styled.View`
-  min-height: 36px;
-  position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  margin-bottom: 8px;
-
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const InputBusca = styled.TextInput`
-  padding: 0 8px;
-  margin-left: 24px;
-  flex: 1;
-  font-family: 'Montserrat_400Regular';
-`;
-
-export const IconeBusca = styled(IconeFeather).attrs({
-  name: 'search',
-  color: 'rgba(0, 0, 0, 0.2)',
-  size: 18,
-})`
-  position: absolute;
-  left: 8px;
+export const NotaImagem = styled.Image`
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  margin: 10px auto 10px;
 `;
 
 export const BotaoAdicionar = styled(RectButton)`
@@ -47,6 +26,21 @@ export const BotaoAdicionar = styled(RectButton)`
 
   align-items: center;
   justify-content: center;
+`;
+
+export const BotaoUpload = styled(RectButton)`
+  background: #624af2;
+  padding: 12px 5px;
+  border-radius: 5px;
+  margin-top: 8px;
+
+  align-items: center;
+  justify-content: center;
+`;
+
+export const BotaoUploadTexto = styled.Text`
+  font-size: 14px;
+  color: #fff;
 `;
 
 export const InputAdicionar = styled.TextInput`

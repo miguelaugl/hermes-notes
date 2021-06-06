@@ -26,7 +26,7 @@ export const Titulo = styled.Text`
 `;
 
 export const Item = styled.View<ItemEstiloProps>`
-  ${({ fixed, editing }) => css`
+  ${({ editing }) => css`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -35,11 +35,7 @@ export const Item = styled.View<ItemEstiloProps>`
     margin-bottom: 8px;
     background: #fff;
     border-bottom-width: 1px;
-    border-color: ${editing
-      ? '#50DDC3'
-      : fixed
-      ? '#624af2'
-      : 'rgba(0, 0, 0, 0.2)'};
+    border-color: ${editing ? '#50DDC3' : 'rgba(0, 0, 0, 0.2)'};
     border-style: solid;
   `}
 `;
@@ -62,4 +58,11 @@ export const Acao = styled(RectButton)<AcaoEstiloProps>`
     margin-left: 8px;
     padding: 8px;
   `}
+`;
+
+export const Imagem = styled.Image`
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  margin-right: 8px;
 `;
